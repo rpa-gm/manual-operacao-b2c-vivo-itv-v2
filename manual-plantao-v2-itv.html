@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Operação - B2C Vivo ITV</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --text-color: #374151;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #111827;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: #4b5563;
+            margin-top: 20px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+        }
+
+        code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95em;
+            color: #db2777;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            text-align: left;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table th {
+            background-color: #f8fafc;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .alert-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 30px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <p>Este manual foi estruturado para facilitar a consulta rápida e garantir a continuidade da operação do Robô B2C Vivo ITV (V2).</p>
+    </header>
+
+    <hr>
+
+    <h1>📖 Manual de Operação e Plantão – B2C Vivo ITV</h1>
+    <p>Este documento descreve o funcionamento, monitoramento e procedimentos de contingência para a versão 2 (V2) da automação.</p>
+
+    <h2>⚙️ 1. Visão Geral do Sistema (V2)</h2>
+    <ul>
+        <li><strong>Horário de Operação:</strong> Inicialização automática às <strong>07:15</strong> e encerramento às <strong>23:59</strong>.</li>
+        <li><strong>Auto-Prevenção de Erros:</strong> O robô encerra a execução caso identifique <strong>3 status seguidos</strong> de erro (códigos 7 ou 0).</li>
+        <li><strong>Controle Remoto via Banco de dados:</strong> Interrupção imediata via banco de dados (tabela <code>rpa_stop</code>), alterando o valor da máquina desejada para <code>True</code>.</li>
+        <li><strong>Monitoramento em Tempo Real:</strong> Dashboard disponível em: <a href="https://vivob2c-services-zimht.ondigitalocean.app/" target="_blank">Link do Dashboard</a></li>
+        <li><strong>Acionamento de parada via dashboard:</strong> Botão para encerrar o processo de uma máquina alvo (Apenas para super usuários).</li>
+    </ul>
+
+    <hr>
+
+    <h2>🖥️ 2. Máquinas em Operação</h2>
+    <p>Atualmente, <strong>8 máquinas</strong> estão configuradas para a rotina diária. Todas possuem o agendamento automático ativo:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Máquina</th>
+                <th>Status de Agendamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>RPAMacro01</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro02</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro04</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro05</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro07</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro08</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro09</td><td><span class="status-badge">Configurado</span></td></tr>
+            <tr><td>RPAMacro10</td><td><span class="status-badge">Configurado</span></td></tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>🛠️ 3. Procedimentos de Contingência</h2>
+    <p>Caso ocorra alguma falha na inicialização automática ou queda durante o dia, siga os passos abaixo:</p>
+
+    <h3>Inicialização Manual</h3>
+    <ol>
+        <li>Acesse a máquina via <strong>AnyDesk</strong>.</li>
+        <li>Localize o atalho <code>run_schedule.ps1</code> na área de trabalho.</li>
+        <li>Clique com o botão direito e selecione <strong>"Executar com o PowerShell"</strong>.</li>
+        <li><strong>Importante:</strong> Após este comando, não realize mais interações na máquina para não interromper o processo.</li>
+    </ol>
+
+    <h3>Verificação de Logs</h3>
+    <p>Para entender o motivo de uma parada ou erro, consulte os logs:</p>
+    <ul>
+        <li><strong>Banco de Dados:</strong> Tabela <code>rpa_logs</code> (utilize o UUID da instância para filtrar).</li>
+        <li><strong>Local (Pós-execução):</strong> <code>C:/dev/VivoNextB2CAutomation/rpa.log</code></li>
+    </ul>
+
+    <hr>
+
+    <h2>🔍 4. Rotina de Monitoramento</h2>
+    <p>O plantonista deve garantir que as <strong>8 máquinas</strong> estejam em atividade constante.</p>
+
+    <h3>Alertas do Dashboard</h3>
+    <ul>
+        <li><strong>Last Update Piscando:</strong> Indica que a máquina não altera o status há mais de <strong>20 minutos</strong>.</li>
+        <li><strong>Procedimento:</strong> Aguarde 5 minutos adicionais. Se o status permanecer estático, acesse a máquina para verificar travamentos.</li>
+    </ul>
+
+    <h3>Pontos de Atenção</h3>
+    <ul>
+        <li><strong>Falha no Início:</strong> Caso alguma máquina não inicie às 07:15, acesse via AnyDesk para identificar o motivo e realize o procedimento de <strong>Inicialização Manual</strong>.</li>
+        <li><strong>Eventos de Sistema:</strong> Ocasionalmente, atualizações do Windows podem impedir o agendamento automático; o monitoramento manual nesses horários é essencial.</li>
+    </ul>
+
+    <div class="alert-box">
+        <strong>💡 Dúvidas ou Crises:</strong> Caso o problema persista após o reinício manual, reporte ao responsável técnico com o print do log local.
+    </div>
+</div>
+
+</body>
+</html>
